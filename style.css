@@ -1,6 +1,6 @@
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #fce4ec;
+  background-color: #f6e5df;
   margin: 0;
   padding: 20px;
 }
@@ -85,4 +85,18 @@ ul li {
   padding: 10px;
   border-left: 4px solid #e91e63;
   border-radius: 5px;
+}
+
+.logo-contenedor {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
