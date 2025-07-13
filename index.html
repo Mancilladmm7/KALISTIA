@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KALISTIA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <h1>Control de Productos y Ventas</h1>
+
+<button onclick="mostrarSeccion('venta')">📄 Registrar Venta</button>
+<button onclick="mostrarSeccion('producto')">➕ Registrar Producto</button>
+<button onclick="mostrarSeccion('inventario')">📦 Inventario</button>
+<button onclick="mostrarSeccion('historial')">🧾 Historial de Ventas</button>
+
+
+
+  <section id="registro-venta" class="seccion">
+    <h2>Registrar Venta</h2>
+    <select id="producto-select"></select>
+    <input type="number" id="cantidad-vendida" placeholder="Cantidad" />
+    <button onclick="registrarVenta()">Registrar Venta</button>
+  </section>
+
+  <section id="registro-producto" class="seccion">
+    <h2>Registrar Producto</h2>
+    <input type="text" id="nombre" placeholder="Nombre del producto" />
+    <input type="number" id="costo" placeholder="Costo ($)" />
+    <input type="number" id="precio" placeholder="Precio de venta ($)" />
+    <input type="number" id="stock" placeholder="Stock" />
+    <button onclick="registrarProducto()">Guardar Producto</button>
+  </section>
+
+  <section id="inventario" class="seccion">
+    <h2>Inventario</h2>
+    <ul id="lista-inventario"></ul>
+  </section>
+
+  <section id="historial" class="seccion">
+  <h2>Historial de Ventas</h2>
+  <ul id="lista-historial"></ul>
+</section>
+
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+
