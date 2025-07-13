@@ -87,17 +87,3 @@ ul li {
   border-radius: 5px;
 }
 
-/* Estilo general del logo */
-.logo {
-  display: block;
-  margin: 20px auto;
-  width: 250px; /* tamaño por defecto */
-  max-width: 90%;
-}
-
-/* En celulares: reducir el tamaño */
-@media screen and (max-width: 600px) {
-  .logo {
-    width: 150px;
-  }
-}
