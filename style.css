@@ -90,6 +90,7 @@ ul li {
 .logo-contenedor {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -97,6 +98,23 @@ ul li {
 .logo {
   width: 200px;
   height: auto;
+  max-width: 90%;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* RESPONSIVE para celulares */
+@media (max-width: 480px) {
+  .logo {
+    width: 140px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
