@@ -87,34 +87,17 @@ ul li {
   border-radius: 5px;
 }
 
-.logo-contenedor {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
+/* Estilo general del logo */
 .logo {
-  width: 200px;
-  height: auto;
+  display: block;
+  margin: 20px auto;
+  width: 250px; /* tamaño por defecto */
   max-width: 90%;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* RESPONSIVE para celulares */
-@media (max-width: 480px) {
+/* En celulares: reducir el tamaño */
+@media screen and (max-width: 600px) {
   .logo {
-    width: 140px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  button {
-    font-size: 14px;
-    padding: 10px;
+    width: 150px;
   }
 }
