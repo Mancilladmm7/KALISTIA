@@ -102,3 +102,37 @@ ul li {
   height: auto;
   margin-bottom: 8px;
 }
+
+/* Estilos para hacer las tablas responsivas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 600px) {
+  h2, h3 {
+    font-size: 18px;
+  }
+
+  th, td {
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  table {
+    font-size: 12px;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .seccion {
+    padding: 10px;
+  }
+}
+
