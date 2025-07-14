@@ -103,6 +103,23 @@ ul li {
   margin-bottom: 8px;
 }
 
+.img-producto {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Estilo adicional para celulares */
+@media screen and (max-width: 600px) {
+  .img-producto {
+    max-width: 80px;
+  }
+}
+
 /* Estilos para hacer las tablas responsivas */
 table {
   width: 100%;

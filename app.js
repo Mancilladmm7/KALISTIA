@@ -1,5 +1,7 @@
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+actualizarSelect(); 
+
 // ✅ FUNCION PARA CONVERTIR IMAGEN A BASE64
 function convertirABase64(file, callback) {
   const reader = new FileReader();
@@ -198,6 +200,18 @@ function mostrarResumen() {
 
   totalGanancia.textContent = `$${sumaGanancia}`;
 }
+
+function actualizarSelect() {
+  const select = document.getElementById("producto-select");
+  if (!select) return;
+
+  select.innerHTML = ""; // limpia opciones anteriores
+
+  productos.forEach((p, i) => {
+    select.innerHTML += `<option value="${i}">${p.nombre} (Stock: ${p.stock})</option>`;
+  });
+}
+
 
 // Inicializar
 actualizarSelect();
