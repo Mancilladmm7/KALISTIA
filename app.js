@@ -1,5 +1,14 @@
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+// ✅ FUNCION PARA CONVERTIR IMAGEN A BASE64
+function convertirABase64(file, callback) {
+  const reader = new FileReader();
+  reader.onloadend = function () {
+    callback(reader.result);
+  };
+  reader.readAsDataURL(file);
+}
+
 
 function guardarDatos() {
   localStorage.setItem("productos", JSON.stringify(productos));
@@ -13,26 +22,23 @@ function registrarProducto() {
   const costo = parseFloat(document.getElementById("costo").value);
   const precio = parseFloat(document.getElementById("precio").value);
   const stock = parseInt(document.getElementById("stock").value);
+  const fotoInput = document.getElementById("foto");
+  const foto = fotoInput.files[0];
 
-  if (!nombre || isNaN(costo) || isNaN(precio) || isNaN(stock)) {
+  if (!nombre || isNaN(costo) || isNaN(precio) || isNaN(stock) || !foto) {
     alert("Faltan datos válidos");
     return;
   }
 
-  productos.push({ nombre, costo, precio, stock });
-  guardarDatos();
-  alert("Producto registrado");
-  document.getElementById("nombre").value = "";
-  document.getElementById("costo").value = "";
-  document.getElementById("precio").value = "";
-  document.getElementById("stock").value = "";
-}
-
-function actualizarSelect() {
-  const select = document.getElementById("producto-select");
-  select.innerHTML = "";
-  productos.forEach((p, i) => {
-    select.innerHTML += `<option value="${i}">${p.nombre} (Stock: ${p.stock})</option>`;
+  convertirABase64(foto, (fotoBase64) => {
+    productos.push({ nombre, costo, precio, stock, foto: fotoBase64 });
+    guardarDatos();
+    alert("Producto registrado");
+    document.getElementById("nombre").value = "";
+    document.getElementById("costo").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("stock").value = "";
+    document.getElementById("foto").value = "";
   });
 }
 
@@ -62,11 +68,15 @@ function mostrarInventario() {
 
   productos.forEach((p, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `
-      📦 <strong>${p.nombre}</strong><br>
-      Precio: $${p.precio} | Costo: $${p.costo} | Stock: ${p.stock}
-      <br><button onclick="eliminarProducto(${index})" class="btn-borrar">🗑️ Eliminar</button>
-    `;
+  li.innerHTML = `
+  <img src="${p.foto}" alt="${p.nombre}" class="img-producto"><br>
+  📦 <strong>${p.nombre}</strong><br>
+  Precio: $${p.precio} | Costo: $${p.costo} | Stock: ${p.stock}
+  <br>
+  <button onclick="eliminarProducto(${index})" class="btn-borrar">🗑️ Eliminar</button>
+  <button onclick="editarProducto(${index})" class="btn-editar">✏️ Editar</button>
+`;
+
     lista.appendChild(li);
   });
 }
@@ -84,9 +94,12 @@ function mostrarSeccion(seccion) {
   } else if (seccion === "historial") {
     document.getElementById("historial").style.display = "block";
     mostrarHistorial();
+  } else if (seccion === "resumen") {
+    document.getElementById("resumen").style.display = "block";
+    mostrarResumen();
   }
+  
 }
-
 
 function eliminarProducto(index) {
   if (confirm("¿Estás seguro de eliminar este producto?")) {
@@ -117,8 +130,79 @@ function mostrarHistorial() {
   });
 }
 
+function editarProducto(index) {
+  const producto = productos[index];
+
+  const nuevoNombre = prompt("Nuevo nombre:", producto.nombre);
+  const nuevoCosto = parseFloat(prompt("Nuevo costo:", producto.costo));
+  const nuevoPrecio = parseFloat(prompt("Nuevo precio:", producto.precio));
+  const nuevoStock = parseInt(prompt("Nuevo stock:", producto.stock));
+
+  if (
+    !nuevoNombre || isNaN(nuevoCosto) || isNaN(nuevoPrecio) || isNaN(nuevoStock)
+  ) {
+    alert("Datos inválidos. No se actualizó el producto.");
+    return;
+  }
+
+productos[index] = {
+  ...producto,
+  nombre: nuevoNombre,
+  costo: nuevoCosto,
+  precio: nuevoPrecio,
+  stock: nuevoStock,
+  foto: producto.foto // ← conserva la imagen original
+};
+
+  guardarDatos();
+  alert("Producto actualizado.");
+}
+
+function mostrarResumen() {
+  // Inversión total
+  const cuerpoInversion = document.getElementById("cuerpo-inversion");
+  const totalInversion = document.getElementById("total-inversion");
+  cuerpoInversion.innerHTML = "";
+  let sumaInversion = 0;
+
+  productos.forEach(p => {
+    const subtotal = p.costo * p.stock;
+    sumaInversion += subtotal;
+    cuerpoInversion.innerHTML += `
+      <tr>
+        <td>${p.nombre}</td>
+        <td>$${p.costo}</td>
+        <td>${p.stock}</td>
+        <td>$${subtotal}</td>
+      </tr>
+    `;
+  });
+
+  totalInversion.textContent = `$${sumaInversion}`;
+
+  // Ganancia total
+  const cuerpoGanancia = document.getElementById("cuerpo-ganancia");
+  const totalGanancia = document.getElementById("total-ganancia");
+  cuerpoGanancia.innerHTML = "";
+  let sumaGanancia = 0;
+
+  ventas.forEach(v => {
+    sumaGanancia += v.ganancia;
+    cuerpoGanancia.innerHTML += `
+      <tr>
+        <td>${v.nombre}</td>
+        <td>$${v.ganancia}</td>
+      </tr>
+    `;
+  });
+
+  totalGanancia.textContent = `$${sumaGanancia}`;
+}
+
 // Inicializar
 actualizarSelect();
 mostrarInventario();
 mostrarSeccion("ventas");
+
+
 

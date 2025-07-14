@@ -18,7 +18,7 @@
 <button onclick="mostrarSeccion('producto')">➕ Registrar Producto</button>
 <button onclick="mostrarSeccion('inventario')">📦 Inventario</button>
 <button onclick="mostrarSeccion('historial')">🧾 Historial de Ventas</button>
-
+<button onclick="mostrarSeccion('resumen')">📊 Resumen</button>
 
 
   <section id="registro-venta" class="seccion">
@@ -34,6 +34,7 @@
     <input type="number" id="costo" placeholder="Costo ($)" />
     <input type="number" id="precio" placeholder="Precio de venta ($)" />
     <input type="number" id="stock" placeholder="Stock" />
+    <input type="file" id="foto" accept="image/*" />
     <button onclick="registrarProducto()">Guardar Producto</button>
   </section>
 
@@ -45,6 +46,48 @@
   <section id="historial" class="seccion">
   <h2>Historial de Ventas</h2>
   <ul id="lista-historial"></ul>
+</section>
+
+<section id="resumen" class="seccion" style="display: none;">
+  <h2>Resumen</h2>
+  <div id="tabla-inversion">
+    <h3>Inversión Total</h3>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Costo</th>
+          <th>Stock</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo-inversion"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"><strong>Total</strong></td>
+          <td id="total-inversion"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div id="tabla-ganancia">
+    <h3>Ganancia Total</h3>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Ganancia</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo-ganancia"></tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td id="total-ganancia"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </section>
 
 
