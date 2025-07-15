@@ -2,7 +2,6 @@ let productos = JSON.parse(localStorage.getItem("productos")) || [];
 let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
 actualizarSelect(); 
 
-// ✅ FUNCION PARA CONVERTIR IMAGEN A BASE64
 function convertirABase64(file, callback) {
   const reader = new FileReader();
   reader.onloadend = function () {
@@ -10,7 +9,6 @@ function convertirABase64(file, callback) {
   };
   reader.readAsDataURL(file);
 }
-
 
 function guardarDatos() {
   localStorage.setItem("productos", JSON.stringify(productos));
@@ -210,12 +208,6 @@ function actualizarSelect() {
   productos.forEach((p, i) => {
     select.innerHTML += `<option value="${i}">${p.nombre} (Stock: ${p.stock})</option>`;
   });
-}
-
-function convertirABase64(file, callback) {
-  const reader = new FileReader();
-  reader.onloadend = () => callback(reader.result);
-  reader.readAsDataURL(file);
 }
 
 // Inicializar

@@ -1,20 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ AQUÍ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>KALISTIA</title>
   <link rel="stylesheet" href="style.css" />
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyD3jyzvzHs2QvvgIt8PsYd6CfgWqF8nltg",
+    authDomain: "kalistia-d34be.firebaseapp.com",
+    projectId: "kalistia-d34be",
+    storageBucket: "kalistia-d34be.firebasestorage.app",
+    messagingSenderId: "804553759366",
+    appId: "1:804553759366:web:f4defef4c8358f79e78f07"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.firebaseDB = db;
+    window.firebaseRef = ref;
+    window.firebasePush = push;
+    window.firebaseSet = set;
+    window.firebaseOnValue = onValue;
+  </script>
+</head>
+
+
 </head>
 
 <body>
 
+<div id="login-container">
+  <h2>BIENVENIDO, Inicia Sesión</h2>
+  <input type="text" id="usuario" placeholder="Usuario" />
+  <input type="password" id="contrasena" placeholder="Contraseña" />
+  <button onclick="iniciarSesion()">Entrar</button>
 </div>
+
+<div id="app-container" style="display: none;">
+
   <h1>KALISTIA</h1>
   <h1>Control de Productos y Ventas</h1>
   
-
 <button onclick="mostrarSeccion('venta')">📄 Registrar Venta</button>
 <button onclick="mostrarSeccion('producto')">➕ Registrar Producto</button>
 <button onclick="mostrarSeccion('inventario')">📦 Inventario</button>
@@ -90,11 +124,31 @@
     </table>
   </div>
 </section>
-
+  </div>
 
   <script src="app.js"></script>
+  <script>
+
+function iniciarSesion() {
+    const usuario = document.getElementById("usuario").value;
+    const contrasena = document.getElementById("contrasena").value;
+
+    if (usuario === "DANIEL MANCILLA" && contrasena === "2606") {
+      document.getElementById("login-container").style.display = "none";
+      document.getElementById("app-container").style.display = "block";
+    } else {
+      alert("Credenciales incorrectas");
+    }
+  }
+
+  function mostrarSeccion(id) {
+    const secciones = document.querySelectorAll(".seccion");
+    secciones.forEach(sec => sec.style.display = "none");
+    document.getElementById(id).style.display = "block";
+  }
+</script>
+
 </body>
 </html>
 
-
-
+</div>
